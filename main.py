@@ -14,7 +14,7 @@ state = dict(map(reversed, us_state_abbrev.items()))
 
 @st.cache
 def load_data(nrows):
-    df = pd.read_csv('../../data/covid_metrics_full_time.csv', index_col=0)
+    df = pd.read_csv('data/covid_metrics_full_time.csv', index_col=0)
 
     df['date'] = pd.to_datetime(df['date'])
     df['code'] = [state.get(i) for i in df['state']]
