@@ -95,4 +95,3 @@ if st.checkbox('Show filtered data'):
     st.write(df_filtered)
 
 interactive_map(df_filtered, slider_date)
-update_interactive_map(slider_date)
