@@ -34,9 +34,9 @@ def load_data(nrows):
     df_temp2 = df_temp2.set_index('state')
     key = df_temp2.to_dict()
 
-    df_temp['pop'] = [key.get('pop').get(i) for i in df_temp['state']]
+    df_temp['pop'] = [key.get('pop').get(i) for i in df_temp['state'].copy()]
 
-    df['proportion'] = df_temp['total'] / df_temp['pop']
+    df['proportion'] = (df_temp['total'] / df_temp['pop']) * 100
 
     for col in df.columns:
         df[col] = df[col].astype(str)
