@@ -1,6 +1,5 @@
 import streamlit as st
 import plotly.graph_objects as go
-import plotly.express as px
 import pandas as pd
 import numpy as np
 import datetime 
@@ -49,6 +48,28 @@ st.header('Play Animation:')
 
 datelist = pd.date_range(datetime.date(2020,1,21), datetime.date(2020,10,13))
 
+def interactive_map(filtered_dataframe):
+    fig = go.Figure(data=go.Choropleth(
+        locations=filtered_dataframe['code'],
+        z=filtered_dataframe['total'],
+        locationmode='USA-states',
+        colorscale='Reds',
+        autocolorscale=False,
+        text=filtered_dataframe['text'], # hover text
+        marker_line_color='white', # line markers between states
+        colorbar_title="Total Affected"
+    ))
+
+    fig.update_layout(
+        title_text=f'USA Covid Snapshot for {str(x)[:10]} <br>(Hover for breakdown)',
+        geo = dict(
+            scope='usa',
+            projection=go.layout.geo.Projection(type = 'albers usa'),
+            showlakes=True, # lakes
+            lakecolor='rgb(255, 255, 255)'),)
+
+    st.plotly_chart(fig, use_container_width=True)
+
 if st.button('Animate'):
     with st.empty():
         for x in datelist:
@@ -59,26 +80,10 @@ if st.button('Animate'):
             # Probably a couple more months after that.
             df_filtered_animate = df[df.index == str(x)[:10]]
 
-            fig = go.Figure(data=go.Choropleth(
-                locations=df_filtered_animate['code'],
-                z=df_filtered_animate['total'],
-                locationmode='USA-states',
-                colorscale='Reds',
-                autocolorscale=False,
-                text=df_filtered_animate['text'], # hover text
-                marker_line_color='white', # line markers between states
-                colorbar_title="Total Affected"
-            ))
+            interactive_map(df_filtered_animate)
 
-            fig.update_layout(
-                title_text=f'USA Covid Snapshot for {str(x)[:10]} <br>(Hover for breakdown)',
-                geo = dict(
-                    scope='usa',
-                    projection=go.layout.geo.Projection(type = 'albers usa'),
-                    showlakes=True, # lakes
-                    lakecolor='rgb(255, 255, 255)'),)
-            
-            st.plotly_chart(fig, use_container_width=True)
+        df_filtered_end = df[df.index == str(datetime.date(2020,10,12))[:10]]
+        interactive_map(df_filtered_end)
 
 st.header('Interactive:')
 st.write('Move the Slider to show different snapshots of the US and visualize some COVID metrics')
@@ -89,23 +94,4 @@ if st.checkbox('Show filtered data'):
     st.subheader('Filtered data')
     st.write(df_filtered)
 
-fig = go.Figure(data=go.Choropleth(
-    locations=df_filtered['code'],
-    z=df_filtered['total'],
-    locationmode='USA-states',
-    colorscale='Reds',
-    autocolorscale=False,
-    text=df_filtered['text'], # hover text
-    marker_line_color='white', # line markers between states
-    colorbar_title="Total Affected"
-))
-
-fig.update_layout(
-    title_text='USA Covid Snapshots Jan 21 - Oct 12<br>(Hover for breakdown)',
-    geo = dict(
-        scope='usa',
-        projection=go.layout.geo.Projection(type = 'albers usa'),
-        showlakes=True, # lakes
-        lakecolor='rgb(255, 255, 255)'),)
-
-st.plotly_chart(fig, use_container_width=True) 
+interactive_map(df_filtered)
