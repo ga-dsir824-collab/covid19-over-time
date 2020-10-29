@@ -48,7 +48,7 @@ st.header('Play Animation:')
 
 datelist = pd.date_range(datetime.date(2020,1,21), datetime.date(2020,10,13))
 
-def interactive_map(filtered_dataframe):
+def interactive_map(filtered_dataframe, current_date):
     fig = go.Figure(data=go.Choropleth(
         locations=filtered_dataframe['code'],
         z=filtered_dataframe['total'],
@@ -61,7 +61,7 @@ def interactive_map(filtered_dataframe):
     ))
 
     fig.update_layout(
-        title_text=f'USA Covid Snapshot for {str(x)[:10]} <br>(Hover for breakdown)',
+        title_text=f'USA Covid Snapshot for {str(current_date)[:10]} <br>(Hover for breakdown)',
         geo = dict(
             scope='usa',
             projection=go.layout.geo.Projection(type = 'albers usa'),
@@ -80,10 +80,10 @@ if st.button('Animate'):
             # Probably a couple more months after that.
             df_filtered_animate = df[df.index == str(x)[:10]]
 
-            interactive_map(df_filtered_animate)
+            interactive_map(df_filtered_animate, x)
 
         df_filtered_end = df[df.index == str(datetime.date(2020,10,12))[:10]]
-        interactive_map(df_filtered_end)
+        interactive_map(df_filtered_end, datetime.date(2020,10,12))
 
 st.header('Interactive:')
 st.write('Move the Slider to show different snapshots of the US and visualize some COVID metrics')
@@ -94,4 +94,5 @@ if st.checkbox('Show filtered data'):
     st.subheader('Filtered data')
     st.write(df_filtered)
 
-interactive_map(df_filtered)
+interactive_map(df_filtered, slider_date)
+update_interactive_map(slider_date)
