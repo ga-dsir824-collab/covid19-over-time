@@ -71,7 +71,7 @@ if st.button('Animate'):
             ))
 
             fig.update_layout(
-                title_text=f'USA Covid Snapshot for {str(x[)[:10]]} <br>(Hover for breakdown)',
+                title_text=f'USA Covid Snapshot for {str(x)[:10]]} <br>(Hover for breakdown)',
                 geo = dict(
                     scope='usa',
                     projection=go.layout.geo.Projection(type = 'albers usa'),
