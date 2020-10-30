@@ -5,18 +5,13 @@ import numpy as np
 import datetime 
 import us_states
 import time
-import webbrowser
 
 st.title('US Covid Metric Snapshots')
 st.write("Application created by Vivian Nguyen in conjunction with General Assembly's DSIR-824 Cohort")
 
-url = 'https://github.com/nytimes/covid-19-data'
-if st.button('Link: Data Source, NYTimes: Coronavirus (Covid-19) Data in the United States'):
-    webbrowser.open_new_tab(url)
+st.markdown('[Link: Data Source, NYTimes: Coronavirus (Covid-19) Data in the United States](https://github.com/nytimes/covid-19-data)')
 
-url2 = 'https://github.com/ga-dsir824-collab/project-5'
-if st.button('Visit Our Project Page! - Decoding COVID-19: Alex Fioto, Vivian Nguyen, Varun Mohan'):
-    webbrowser.open_new_tab(url2)
+st.markdown('[Visit Our Project Page! - Decoding COVID-19: Alex Fioto, Vivian Nguyen, Varun Mohan](https://github.com/ga-dsir824-collab/project-5)')
 
 DATE_COLUMN = 'date/time'
 
