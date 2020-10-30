@@ -13,6 +13,10 @@ url = 'https://github.com/nytimes/covid-19-data'
 if st.button('Link: Data Source, NYTimes: Coronavirus (Covid-19) Data in the United States'):
     webbrowser.open_new_tab(url)
 
+url2 = 'https://github.com/ga-dsir824-collab/project-5'
+if st.button('Visit Our Project Page! - Decoding COVID-19: Alex Fioto, Vivian Nguyen, Varun Mohan'):
+    webbrowser.open_new_tab(url2)
+
 DATE_COLUMN = 'date/time'
 
 us_state_abbrev = us_states.abbrev_us_state
