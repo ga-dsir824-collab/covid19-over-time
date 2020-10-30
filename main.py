@@ -5,6 +5,7 @@ import numpy as np
 import datetime 
 import us_states
 import time
+import webbrowser
 
 st.title('US Covid Metric Snapshots')
 st.write("Application created by Vivian Nguyen in conjunction with General Assembly's DSIR-824 Cohort")
