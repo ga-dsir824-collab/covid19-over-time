@@ -217,7 +217,5 @@ if st.checkbox('Show filtered data'):
     st.subheader('Filtered data')
     st.write(df_filtered)
 
-plt.subplot(1,2,1)
 interactive_map(df_filtered, slider_date)
-plt.subplot(1,2,2)
 interactive_map_proportion(df_filtered, slider_date)
