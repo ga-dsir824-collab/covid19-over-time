@@ -14,7 +14,6 @@ from plotly.subplots import make_subplots
 import plotly.graph_objects as go
 import pandas as pd
 import numpy as np
-import matplotlib.pyplot as plt
 import datetime 
 import us_states
 import time
@@ -82,9 +81,9 @@ try:
     timestamp = repo.commit("master").committed_date
     st.text(f'Commit: {repo.commit("master")} \nFrom {datetime.datetime.fromtimestamp(timestamp)}')
 except:
-    st.text('Could not find existing repo, downloading data from {url}')
+    st.text(f'Could not find existing repo, downloading data from {url}')
     # Clone the whole repo to disk
-    git.Repo.clone_from(url='https://github.com/nytimes/covid-19-data')
+    git.Repo.clone_from(url='https://github.com/nytimes/covid-19-data', to_path='./covid-19-data')
     repo = git.Repo(path='./covid-19-data')
     assert not repo.bare
     st.text(f'Data Loaded at: {repo}')
